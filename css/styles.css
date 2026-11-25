@@ -5,12 +5,12 @@
    TYPE   Fredoka for the name and numbers, Nunito for text
    LAYOUT one column: title bar, mode tabs, level row, board, status; same on phone */
 :root{color-scheme:light dark;
---bg:light-dark(#fdf0dc,#1d1822);--ink:light-dark(#3b2a22,#f6ead9);--soft:light-dark(#7a6253,#bfae9c);
---card:light-dark(#fffaf1,#2a2330);--line:light-dark(#ead8bd,#3d3446);--frame:light-dark(#8a5a3b,#4a3528);--frame2:light-dark(#6b4329,#2f2119);
+--bg:light-dark(#fff6e6,#1d1822);--ink:light-dark(#3b2a22,#f6ead9);--soft:light-dark(#7a6253,#bfae9c);
+--card:light-dark(#fffdf8,#2a2330);--line:light-dark(#f0dcc0,#3d3446);--frame:light-dark(#8a5a3b,#4a3528);--frame2:light-dark(#6b4329,#2f2119);
 --acc:light-dark(#ff7d66,#ff8f7a);--bad:light-dark(#e5484d,#ff6369);--ok:light-dark(#3f9a5b,#7fd497);
 --edge:light-dark(#7a4b2c,#110c13);
---r0:light-dark(#ffd3d3,#6e3d45);--r1:light-dark(#ffe0b0,#6f5130);--r2:light-dark(#fff1a1,#666032);--r3:light-dark(#d2efc0,#3d5c39);
---r4:light-dark(#c4e6f3,#2d5767);--r5:light-dark(#d9d3fb,#47417a);--r6:light-dark(#f7cfec,#673d62);--r7:light-dark(#e6d9c6,#5d5866);--r8:light-dark(#c5ede0,#2c6154)}
+--r0:light-dark(#ffb3c7,#a8456a);--r1:light-dark(#ffc98a,#a8622a);--r2:light-dark(#fff07a,#958727);--r3:light-dark(#c3f59a,#4f8f33);
+--r4:light-dark(#a9dcff,#2f72a3);--r5:light-dark(#c8b9ff,#5d4cb0);--r6:light-dark(#f9b3f0,#9a4290);--r7:light-dark(#ffb4a2,#a84f40);--r8:light-dark(#93ecd3,#2b8c74)}
 :root[data-theme=light]{color-scheme:light}
 :root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
