@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A cozy dog logic puzzle. One dog per row, column and colour, and no dogs touching.">
+<meta name="theme-color" content="#fdf0dc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d1822" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Woofdoku">
+<title>Woofdoku</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="dog" viewBox="0 0 100 100">
+<ellipse cx="50" cy="92" rx="28" ry="5" fill="#000" opacity=".13"/>
+<path d="M27 26C9 27 4 55 13 69c6 8 15 3 18-9l5-24z" fill="#9a5b2e"/>
+<path d="M73 26c18 1 23 29 14 43-6 8-15 3-18-9l-5-24z" fill="#9a5b2e"/>
+<ellipse cx="50" cy="52" rx="31" ry="31" fill="#e9b97b"/>
+<path d="M22 60a31 31 0 0 0 56 0c-8 12-48 12-56 0z" fill="#d49e62"/>
+<ellipse cx="42" cy="34" rx="15" ry="8" fill="#f7d9a8" opacity=".8"/>
+<ellipse cx="63" cy="43" rx="11" ry="10" fill="#c98b4f"/>
+<ellipse cx="50" cy="66" rx="17" ry="13" fill="#fcefd8"/>
+<circle cx="38" cy="46" r="4.8" fill="#2b1d17"/><circle cx="62" cy="46" r="4.8" fill="#2b1d17"/>
+<circle cx="39.6" cy="44.3" r="1.6" fill="#fff"/><circle cx="63.6" cy="44.3" r="1.6" fill="#fff"/>
+<path d="M47 71q3 10 6 0z" fill="#ff8597"/>
+<path d="M50 64v5m0 0q-5 5-9 1m9-1q5 5 9 1" stroke="#2b1d17" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<path d="M42.5 58q7.5-5 15 0q-2 6-7.5 6.5q-5.5-.5-7.5-6.5z" fill="#2b1d17"/>
+<circle cx="29" cy="61" r="4" fill="#ff9e9e" opacity=".5"/><circle cx="71" cy="61" r="4" fill="#ff9e9e" opacity=".5"/>
+</symbol>
+<symbol id="xm" viewBox="0 0 10 10"><path d="M2.5 2.5l5 5m0-5l-5 5"/></symbol>
+</defs>
+</svg>
+
+<div class="app">
+<div class="col">
+<header>
+<h1><svg aria-hidden="true"><use href="#dog"/></svg>Woofdoku</h1>
+<button class="ib" id="getApp" aria-label="Install Woofdoku" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg></button>
+<button class="ib" id="snd" aria-label="Sound on"></button>
+<button class="ib" id="help" aria-label="How to play"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 9a3 3 0 1 1 4 2.8c-.7.3-1 .9-1 1.7V14"/><circle cx="12" cy="18" r=".6" fill="currentColor"/></svg></button>
+</header>
+<div class="tabs" role="group" aria-label="Mode">
+<button id="tLev" aria-pressed="true">Levels</button>
+<button id="tEnd" aria-pressed="false">Endless</button>
+</div>
+<div class="row" id="levRow">
+<button class="ib" id="prev" aria-label="Previous level"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+<button class="lvl" id="lvl" aria-label="Choose level"></button>
+<button class="ib" id="next" aria-label="Next level"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
+<div class="row" id="endRow" hidden>
+<div class="chips" id="diffs" role="group" aria-label="Difficulty"></div>
+</div>
+<div class="frame"><div class="board" id="board" role="grid" aria-label="Puzzle board"></div></div>
+<div class="status">
+<div class="count" id="count" aria-live="polite"></div>
+<div class="acts" style="flex:none">
+<button class="btn" id="clear">Clear</button>
+<button class="btn main" id="newp" hidden>New puzzle</button>
+</div>
+</div>
+<p class="rules">One dog per row, column and colour. Dogs never touch, not even corner to corner.</p>
+</div>
+</div>
+
+<div class="sheet" id="sHelp" role="dialog" aria-modal="true" aria-labelledby="hT"><div class="card">
+<h2 id="hT">How to play</h2>
+<p>Find every dog its own patch of the park.</p>
+<div class="howto">
+<div class="step"><div class="mini" id="m1" aria-hidden="true"></div><div><b>One per row, column and colour</b><span>Each row, each column and each coloured patch holds exactly one dog.</span></div></div>
+<div class="step"><div class="mini" id="m2" aria-hidden="true"></div><div><b>Dogs need space</b><span>No two dogs may touch, not even diagonally. Their 8 neighbours stay empty.</span></div></div>
+<div class="step"><div class="cyc" aria-hidden="true"><div></div><em>›</em><div><svg class="x"><use href="#xm"/></svg></div><em>›</em><div><svg><use href="#dog"/></svg></div></div><div><b>Tap to mark</b><span>Tap a square once for an X (no dog here), again for a dog, again to clear. Drag across squares to X many at once.</span></div></div>
+</div>
+<div class="inst" id="inst" hidden>
+<div><b>Put Woofdoku on your phone</b><span id="instTxt">Install it to play full screen, even offline.</span></div>
+<button class="btn main" id="instBtn" hidden>Install</button>
+</div>
+<div class="sets">
+<button class="tog" id="oSnd" role="switch">Sound<i></i></button>
+<button class="tog" id="oVib" role="switch">Vibration<i></i></button>
+</div>
+<div class="acts"><button class="btn main" data-close>Let's play</button></div>
+</div></div>
+
+<div class="sheet" id="sLev" role="dialog" aria-modal="true" aria-labelledby="lT"><div class="card">
+<h2 id="lT">Levels</h2>
+<p id="lSub"></p>
+<div class="lgrid" id="lgrid"></div>
+<div class="acts"><button class="btn" data-close>Close</button></div>
+</div></div>
+
+<div class="sheet" id="sClr" role="dialog" aria-modal="true" aria-labelledby="cT"><div class="card">
+<h2 id="cT">Clear the board?</h2>
+<p>All your dogs and X marks on this puzzle will be removed.</p>
+<div class="acts"><button class="btn" data-close>Keep playing</button><button class="btn main" id="doClr">Clear</button></div>
+</div></div>
+
+<div class="sheet" id="sWin" role="dialog" aria-modal="true" aria-labelledby="wT"><div class="card win">
+<svg aria-hidden="true"><use href="#dog"/></svg>
+<h2 id="wT">Good dogs!</h2>
+<p id="wSub"></p>
+<div class="acts"><button class="btn" id="wMenu">Levels</button><button class="btn main" id="wNext">Next level</button></div>
+</div></div>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<script src="/js/engine.js"></script>
+<script src="/js/game.js"></script>
+</body>
+</html>
