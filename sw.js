@@ -2,7 +2,7 @@
    - Same-origin files: network first (so a new deploy shows up straight away),
      falling back to the cache when offline.
    - Google Fonts: cache first, since font files never change. */
-const VERSION = 'woofdoku-v2';
+const VERSION = 'woofdoku-v3';
 const SHELL = [
   '/',
   '/css/styles.css',
